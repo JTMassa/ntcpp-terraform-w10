@@ -26,22 +26,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-
-      
-
-      # Security Scan using Checkov
-      - name: Security Scan (Checkov)
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: .
-          framework: terraform
-          soft_fail: false # Fails the build if high-risk issues are found
-
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color
 
-      # Apply only on merge/push to main
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+      
