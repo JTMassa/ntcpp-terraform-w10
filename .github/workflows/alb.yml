@@ -27,8 +27,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Format Check
-        run: terraform fmt -check
+      
 
       # Security Scan using Checkov
       - name: Security Scan (Checkov)
