@@ -22,10 +22,24 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.6.0"
+          terraform_version: "1.14.0"
 
       - name: Terraform Init
         run: terraform init
+    
+      - name: Terraform Format
+        run: terraform fmt 
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Run Trivy IaC scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: config
+          scan-ref: .
+
+
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color
